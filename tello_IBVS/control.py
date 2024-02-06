@@ -7,7 +7,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from tello_msgs.srv import TelloAction
 
-class VisualServoing(Node):
+class ArucoNode(Node):
 
     def __init__(self):
         super().__init__('aruco_node')
@@ -43,12 +43,7 @@ class VisualServoing(Node):
         
         if markerIds is not None:
             print("Aruco marker detected!!!!!!!!!")
-            future = self.send_request('land')
-            if future.result() is not None:
-                self.get_logger().info('Result of tello_action: %s' % (future.result()))
-            else:
-                self.get_logger().error('Exception while calling service: %r' % future.exception())
-            image_with_markers = cv.aruco.drawDetectedMarkers(cv_image.copy(), markerCorners, markerIds)
+            self.send_request('land')
         else:
             print("No Aruco marker detected.")
             
@@ -64,7 +59,7 @@ class VisualServoing(Node):
 def main(args=None):
     rclpy.init(args=args)
 
-    aruco_node = VisualServoing()
+    aruco_node = ArucoNode()
 
     rclpy.spin(aruco_node)
 
