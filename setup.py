@@ -1,6 +1,6 @@
 from setuptools import setup
 
-package_name = 'tello_IBVS'
+package_name = 'tello_ibvs'
 
 setup(
     name=package_name,
@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        	'visual_servoing = tello_IBVS.control:main'  
+        	'visual_servoing = tello_ibvs.control:main'  
         ],
     },
 )
