@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        	'visual_servoing = tello_ibvs.control:main'  
+        	'takeoff_and_land = tello_ibvs.aruco_land:main',
+            'pose_estimation = tello_ibvs.aruco_poseEstimation:main'
         ],
     },
 )

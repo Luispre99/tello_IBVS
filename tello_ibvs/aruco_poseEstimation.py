@@ -22,12 +22,12 @@ class ArucoNode(Node):
         
         #self.send_request('takeoff') # ⚠️ CAUTION: Uncommenting WILL trigger drone takeoff.
         
-        self.dictionary = cv.aruco.getPredefinedDictionary(cv.aruco.DICT_4X4_250)
+        self.dictionary = cv.aruco.getPredefinedDictionary(cv.aruco.DICT_4X4_100)
         self.parameters = cv.aruco.DetectorParameters()
         self.detector = cv.aruco.ArucoDetector(self.dictionary, self.parameters)
         self.bridge = CvBridge()
 
-        with open('test.yaml') as file:
+        with open('/home/modular/tello_ros_ws/src/tello_ibvs/tello_ibvs/test.yaml') as file:
             camera_params = yaml.load(file)
         self.camera_matrix = np.array(camera_params.get('camera_matrix').get('data')).reshape(3,3)
         self.dist_coeffs = np.array(camera_params.get('distortion_coefficients').get('data'))
@@ -44,12 +44,12 @@ class ArucoNode(Node):
 
         if len(markerCorners) > 0:
             for i in range(0, len(markerIds)):
-                retval, rvec, tvec = cv.solvePnP(self.markerPoints, self.corners[i], self.camera_matrix, self.dist_coeffs)
+                retval, rvec, tvec = cv.solvePnP(self.markerPoints, markerCorners[i], self.camera_matrix, self.dist_coeffs)
                 cv_frame = cv.drawFrameAxes(cv_frame, self.camera_matrix, self.dist_coeffs, rvec, tvec, 0.1)
                 print(tvec)
 
-        #cv.imshow('image', cv_frame)
-        #cv.waitKey(1)
+        cv.imshow('image', cv_frame)
+        cv.waitKey(1)
         
     def send_request(self, command):
         self.req.cmd = command
