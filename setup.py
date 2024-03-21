@@ -20,8 +20,9 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-        	'takeoff_and_land = tello_ibvs.aruco_land:main',
-            'pose_estimation = tello_ibvs.aruco_poseEstimation:main'
+            'takeoff_and_land = tello_ibvs.aruco_land:main',
+            'pose_estimation = tello_ibvs.aruco_poseEstimation:main',
+            'teleop_keys = tello_ibvs.tello_teleop_keys:main'
         ],
     },
 )
