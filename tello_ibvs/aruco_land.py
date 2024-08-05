@@ -14,7 +14,7 @@ class ArucoNode(Node):
         self.publisher_ = self.create_publisher(String, 'topic', 10)
         self.subscriber = self.create_subscription(Image,'/image_raw',self.listener_callback,10)
         self.client = self.create_client(TelloAction, 'tello_action')
-        
+
         while not self.client.wait_for_service(timeout_sec=1.0):
             self.get_logger().info('service not available, waiting again...')
         self.req = TelloAction.Request()
@@ -29,7 +29,7 @@ class ArucoNode(Node):
         self.parameters = cv.aruco.DetectorParameters()
         self.detector = cv.aruco.ArucoDetector(self.dictionary, self.parameters)
         self.bridge = CvBridge()
-        
+
     def timer_callback(self):
         msg = String()
         msg.data = 'Hello World: %d' % self.i
@@ -40,7 +40,6 @@ class ArucoNode(Node):
     def listener_callback(self, msg):
         cv_image = self.bridge.imgmsg_to_cv2(msg, desired_encoding='bgr8')
         markerCorners, markerIds, rejectedCandidates = self.detector.detectMarkers(cv_image)
-        
         if markerIds is not None:
             print("Aruco marker detected!!!!!!!!!")
             self.send_request('land')

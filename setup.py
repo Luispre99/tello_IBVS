@@ -21,7 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'takeoff_and_land = tello_ibvs.aruco_land:main',
-            'pose_estimation = tello_ibvs.aruco_poseEstimation:main',
+            'visual_servoing = tello_ibvs.tello_visual_servoing:main',
             'teleop_keys = tello_ibvs.tello_teleop_keys:main'
         ],
     },
